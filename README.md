@@ -22,6 +22,6 @@ Given:
 </section>
 ```
 
-When an element is appended after 3, Windows Narrator will narrate.
+When an element is appended after 3, Windows Narrator will narrate it.
 
 However, when an element is inserted before 3, Windows Narrator will ignore it.
