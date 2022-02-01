@@ -22,16 +22,37 @@ Given:
 </section>
 ```
 
-When an element is appended after 3, Windows Narrator will narrate it.
+When an element is appended after 3, Windows Narrator will read it.
 
 However, when an element is inserted before 3, Windows Narrator will ignore it.
 
 ## Live region with same content
 
+(Not confirmed, need repro)
+
 Tested on Edge + Windows Narrator.
 
 In a live region, the elements are "ABC", "DEF" and "XYZ". Then, after 2 seconds, remove all of them. Then, after a few more seconds, add back "ABC", "DEF", and "XYZ".
 
-Narrator fails recognize the first "ABC" is a new one. And at the time the elements is reappear in the DOM tree, it only narrate "DEF" and "XYZ".
+Narrator fails recognize the first "ABC" is a new one. And at the time the elements is reappear in the DOM tree, it only read "DEF" and "XYZ".
 
 In our case, we are using `aria-labelledby` to point to the narrative content of "ABC", "DEF", and "XYZ".
+
+## Live region with `aria-labelledby`
+
+(Not confirmed, need repro)
+
+Tested on iOS Safari + VoiceOver.
+
+In a live region, Safari will read the added element without looking at `aria-labelledby`.
+
+Say, the following element is added:
+
+```html
+<div aria-labelledby="label-id">
+  <div id="label-id">Should read this</div>
+  <div>Should not read this</div>
+</div>
+```
+
+Narrator only read the "Should read this". But Safari read both, including the one that is not referenced by `aria-labelledby`.
