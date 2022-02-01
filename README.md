@@ -8,7 +8,7 @@
 
 Tested on Edge + Windows Narrator.
 
-Live region with `aria-relevant="additions"` will only look at the last element in the container.
+Live region with `aria-relevant="additions"` will only look at the last element in the container. It should also applies to when `aria-relevant` is not present or is presented with other token, such as `"additions text"`.
 
 ### Tests
 
