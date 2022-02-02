@@ -42,11 +42,11 @@ In our case, we are using `aria-labelledby` to point to the narrative content of
 
 (Not confirmed, need repro)
 
-Tested on iOS Safari + VoiceOver.
+Tested on iOS Safari + VoiceOver and Chrome + NVDA.
 
 In a live region, Safari will read the added element without looking at `aria-labelledby`.
 
-Say, the following element is added:
+Say, the following element is added to the live region:
 
 ```html
 <div aria-labelledby="label-id">
