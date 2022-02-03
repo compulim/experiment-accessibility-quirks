@@ -43,6 +43,8 @@ However, when an element is inserted before 3, Narrator will ignore it.
 
 ## Live region with same content
 
+> Could be related to [crbug#863375](https://bugs.chromium.org/p/chromium/issues/detail?id=863375).
+
 (Not confirmed, need repro)
 
 Tested on Edge + Windows Narrator.
@@ -200,15 +202,15 @@ However, for `role="feed"`, VoiceOver would only read "1", "2", and "3". The con
 
 Also, `aria-posinset`/`aria-setsize` are ignored. In other AT, they would read as "1 of 3".
 
-## `aria-label` is ignored by scan mode
+## `aria-label` sometimes ignored by scan mode with generic widget
 
-> This is probably correct behavior, but inconsistent across AT.
-
-Tested on Edge + Narrator and Chrome + NVDA.
+The behavior is inconsistent across AT.
 
 ### Background
 
-When focusing on `<button aria-label="Aloha">Hello</button>`, it would read "Aloha", instead of "Hello".
+When focusing on `<button aria-label="Yay">Yes</button>`, it would read "Yay", instead of "Yes". This is consistent across AT.
+
+When focusing on `<div aria-label="Yay" tabindex="0">Yes</div>`, it varies.
 
 ### Findings
 
@@ -217,11 +219,25 @@ When focusing on `<button aria-label="Aloha">Hello</button>`, it would read "Alo
 | Narrator | `<button aria-label="Yay">Yes</button>` | <kbd>TAB</kbd>: "Yay button"<br />Scan: "Yay button Yes" |
 | NVDA | `<button aria-label="Yay">Yes</button>` | <kbd>TAB</kbd>: "Yay button"<br />Scan: "button Yay" |
 | VoiceOver | `<button aria-label="Yay">Yes</button>` | Select: "Yay button"<br />Double tap: "Yay" |
-| TalkBack | `<button aria-label="Yay">Yes</button>` | Select: "Yay"<br />Double tap: "Yay" |
+| TalkBack | `<button aria-label="Yay">Yes</button>` | Select: "Yay button"<br />Double tap: nothing |
 | Narrator | `<div aria-label="Yay" tabindex="0">Yes</div>` | <kbd>TAB</kbd>: "Yay group"<br />Scan: "Yes" |
 | NVDA | `<div aria-label="Yay" tabindex="0">Yes</div>` | <kbd>TAB</kbd>: "Yes"<br />Scan: "Yes" |
 | VoiceOver | `<div aria-label="Yay" tabindex="0">Yes</div>` | Select: "Yes"<br />Double tap: "Yes" |
-| TalkBack | `<div aria-label="Yay" tabindex="0">Yes</div>` | Select: "Yay button"<br />Double tap: nothing |
+| TalkBack | `<div aria-label="Yay" tabindex="0">Yes</div>` | Select: "Yay"<br />Double tap: nothing |
+
+ATs are not consistent on how to handle `aria-label` for roles that are not expected to be interactive, e.g. `role="generic"`.
+
+It boils down to how ATs should handle `<p aria-label="Yay">Yes</p>`.
+
+Generalizing the table above:
+
+- TalkBack always use `aria-label`
+- NVDA and VoiceOver use `aria-label` for interactive roles, and text node for non-interactive roles
+- Narrator use `aria-label` when focused, but text node when scanned
+  - This is somehow similar to NVDA and VoiceOver, but Narrator use a different strategy on deciding interactivity: <kbd>TAB</kbd> means interactive, scan means non-interactive
+  - When Narrator consider the widget is interactive, it concatenates both `aria-label` and text node into "Yay button Yes". This seems bugged
+  - When `aria-label` or `aria-labelledby` is present, accessible name computation should not consider its content
+  - Correct reading should be "Yay button", instead of "Yay button Yes"
 
 ## TalkBack: should not read content if focusables are nested
 
