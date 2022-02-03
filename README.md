@@ -96,6 +96,10 @@ VoiceOver has a feature called rotor, which can be used to quickly jump between 
 
 For `<div tabindex="0">`, when using "form controls" rotor, the selection ring will never land on it. Thus, setting `tabindex` on non-standard element will not be discoverable.
 
+### Additional information
+
+TalkBack also has similar feature, it can discover non-standard focusable elements by using swipe up/down while in "controls" mode.
+
 ## iOS Safari: `aria-activedescendant` supports is YMMV
 
 Tested on iOS Safari + VoiceOver.
@@ -110,7 +114,9 @@ Widgets designed with `aria-activedescendant`, usually designed with a keyboard 
 
 However, on iOS, keyboard is uncommon and direct tap is disabled. Thus, moving the active descendant ring is not an easy task: the user need to swipe left/right to select what they want to set as active descendant, then double tap on the screen.
 
-When designing widgets with `aria-activedescendant`, special care is needed. Especially when it is not trivial to move the selection ring using swipes. Even the selection landed on an activable descendant, without additional hints, the user may not notice they can double-tap to activate it.
+When designing widgets with `aria-activedescendant`, special care is needed. Especially when it is not trivial to move the selection ring using swipes. Not every AT-selectable element are activable. Even the selection landed on an activable descendant, without additional hints, the user may not notice they can double-tap to activate it.
+
+If the UI requires the user to active a descendant to perform certain actions, this AX will need to be carefully designed.
 
 ## iOS Safari + VoiceOver: `aria-roledescription` will mute the role description
 
@@ -126,7 +132,22 @@ Comparing three scenarios:
 | `<article aria-roledescription="message">Hello</article>` | "hello" |
 | `<article aria-roledescription="">Hello</article>` | "hello, article" |
 
+## TalkBack: `aria-roledescription` is ignored
+
+Tested on Chrome + TalkBack
+
+### Findings
+
+Comparing three scenarios:
+
+| HTML | VoiceOver read as |
+| - | - |
+| `<article>Hello</article>` | "hello, article" |
+| `<article aria-roledescription="message">Hello</article>` | "hello, article" |
+
 ## iOS Safari + VoiceOver: `aria-label` seems mistreated as `aria-roledescription`
+
+🪲 Seems like a bug.
 
 Tested on iOS Safari + VoiceOver
 
@@ -146,11 +167,16 @@ It would read "first paragraph, message", followed by "last paragraph, end, mess
 Notes:
 
 - "won't say this" was never read;
+   - Ignoring unknown attribute is correct behavior
 - "end, message" is read after the last element in the article.
+   - This is the behavior of `aria-roledescription`
+   - For `<div role="list">`, it will say "start **list**" and "end **list**"
+   - "list" is a role and can be modified by `aria-roledescription`
+   - Safari seems mistook `aria-label` as `aria-roledescription` because it is saying "end **message**"
 
-## iOS Safari + VoiceOver: `role="feed"` will not read with start/end or `aria-posinset`
+## `role="feed"` will not read with start/end or `aria-posinset`
 
-Tested on iOS Safari + VoiceOver
+Tested on Edge + Narrator and iOS Safari + VoiceOver.
 
 ### Background
 
@@ -173,3 +199,72 @@ For `role="list"`, VoiceOver would read as "1, list start", "2", and "3, list en
 However, for `role="feed"`, VoiceOver would only read "1", "2", and "3". The containment is not read.
 
 Also, `aria-posinset`/`aria-setsize` are ignored. In other AT, they would read as "1 of 3".
+
+## `aria-label` is ignored by scan mode
+
+> This is probably correct behavior, but inconsistent across AT.
+
+Tested on Edge + Narrator and Chrome + NVDA.
+
+### Background
+
+When focusing on `<button aria-label="Aloha">Hello</button>`, it would read "Aloha", instead of "Hello".
+
+### Findings
+
+| AT | HTML | Read as |
+| - | - | - |
+| Narrator | `<button aria-label="Yay">Yes</button>` | <kbd>TAB</kbd>: "Yay button"<br />Scan: "Yay button Yes" |
+| NVDA | `<button aria-label="Yay">Yes</button>` | <kbd>TAB</kbd>: "Yay button"<br />Scan: "button Yay" |
+| VoiceOver | `<button aria-label="Yay">Yes</button>` | Select: "Yay button"<br />Double tap: "Yay" |
+| TalkBack | `<button aria-label="Yay">Yes</button>` | Select: "Yay"<br />Double tap: "Yay" |
+| Narrator | `<div aria-label="Yay" tabindex="0">Yes</div>` | <kbd>TAB</kbd>: "Yay group"<br />Scan: "Yes" |
+| NVDA | `<div aria-label="Yay" tabindex="0">Yes</div>` | <kbd>TAB</kbd>: "Yes"<br />Scan: "Yes" |
+| VoiceOver | `<div aria-label="Yay" tabindex="0">Yes</div>` | Select: "Yes"<br />Double tap: "Yes" |
+| TalkBack | `<div aria-label="Yay" tabindex="0">Yes</div>` | Select: "Yay button"<br />Double tap: nothing |
+
+## TalkBack: should not read content if focusables are nested
+
+🪲 Seems like a bug.
+
+Tested on Chrome 97.0.4692.98 + TalkBack 12.1.
+
+### Background
+
+When selecting a focusable element, it should only read its accessible name (such as `aria-label`), but not its content.
+
+### Findings
+
+With the following element:
+
+```html
+<div aria-label="Title" tabindex="0">
+  <p>First paragraph</p>
+  <p>Last paragraph</p>
+</div>
+```
+
+From the top of the document, swiping right, it will read:
+
+- "Title"
+- "First paragraph"
+- "Last paragraph"
+
+This is correct behavior.
+
+However, when a focusable element is nested inside:
+
+```html
+<div aria-label="Title" tabindex="0">
+  <p>First paragraph</p>
+  <p>Last paragraph</p>
+  <button>Hello</button>
+</div>
+```
+
+From the top of the document, swiping right, it will read:
+
+- "Title, **First paragraph, Last paragraph**" (it should not narrate the content)
+- "First paragraph"
+- "Last paragraph"
+- "Hello button, double tap to active"
