@@ -65,7 +65,7 @@ Say, the following element is added to the live region:
 | VoiceOver | "Should read this, should not read this" |
 | NVDA | "Should read this, should not read this" |
 
-## iOS Safari + VoiceOver: `tabindex="0"` cannot be discovered for form controls rotor
+## iOS Safari + VoiceOver: `tabindex="0"` cannot be discovered by form controls rotor
 
 Tested on iOS Safari + VoiceOver.
 
