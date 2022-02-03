@@ -149,7 +149,7 @@ Comparing three scenarios:
 
 🪲 Seems like a bug.
 
-Tested on iOS Safari + VoiceOver
+Tested on iOS 15.1 Safari + VoiceOver.
 
 ### Findings
 
@@ -227,7 +227,7 @@ When focusing on `<button aria-label="Aloha">Hello</button>`, it would read "Alo
 
 🪲 Seems like a bug.
 
-Tested on Chrome 97.0.4692.98 + TalkBack 12.1.
+Tested on Chrome 97.0.4692.98 + TalkBack 12.1 and Chrome 100.0.4867.0 + TalkBack 12.1.
 
 ### Background
 
@@ -268,3 +268,29 @@ From the top of the document, swiping right, it will read:
 - "First paragraph"
 - "Last paragraph"
 - "Hello button, double tap to active"
+
+### Additional information
+
+The only way to workaround it is to make it not focusable by any means, such as `<button disabled>`, `<button hidden>`, `<button style="display: none;">`. However, in many cases, this is not a feasible workaround.
+
+Things tested **not** working as a workaround:
+
+```html
+<button
+  aria-hidden="true"
+  role="presentation none"
+  style="pointer-events: none;"
+  tabindex="-1"
+>
+```
+
+And
+
+```html
+<div
+  aria-hidden="true"
+  role="presentation none"
+>
+  <button>Hello</button>
+</div>
+```
