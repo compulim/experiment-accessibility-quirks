@@ -110,6 +110,8 @@ Widgets designed with `aria-activedescendant`, usually designed with a keyboard 
 
 However, on iOS, keyboard is uncommon and direct tap is disabled. Thus, moving the active descendant ring is not an easy task: the user need to swipe left/right to select what they want to set as active descendant, then double tap on the screen.
 
+When designing widgets with `aria-activedescendant`, special care is needed. Especially when it is not trivial to move the selection ring using swipes. Even the selection landed on an activable descendant, without additional hints, the user may not notice they can double-tap to activate it.
+
 ## iOS Safari + VoiceOver: `aria-roledescription` will mute the role description
 
 Tested on iOS Safari + VoiceOver
