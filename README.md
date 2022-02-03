@@ -30,6 +30,17 @@ When an element is appended after 3, Narrator will read it.
 
 However, when an element is inserted before 3, Narrator will ignore it.
 
+```html
+<section role="liveregion" aria-relevant="additions">
+  <article>When added, this is not read</article>
+  <article>1</article>
+  <article>2</article>
+  <article>When added, this is not read</article>
+  <article>3</article>
+  <article>When added, this is read</article>
+</section>
+```
+
 ## Live region with same content
 
 (Not confirmed, need repro)
