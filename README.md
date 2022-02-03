@@ -61,11 +61,21 @@ Narrator only read the "Should read this". But Safari read both, including the o
 
 Tested on iOS Safari + VoiceOver.
 
-For `<div tabindex="0">`, the end-user cannot use "form controls" rotor to focus on it. Setting `tabindex` on non-standard element hurts discoverability.
+### Background
+
+There is no TAB key on iOS. Thus, nothing is truly focusable in Safari. However, like other AT, VoiceOver provides "selection ring" to select different items, regardless whether they are interactive or not.
+
+VoiceOver also have a feature called rotor, which can be used to quickly jump between type of items. If rotor is set to "form controls", users can quickly jump between buttons and textboxes, skipping anything else.
+
+### Findings
+
+For `<div tabindex="0">`, when using "form controls" rotor, the selection ring will never land on it. Thus, setting `tabindex` on non-standard element will not be discoverable.
 
 ## iOS Safari + VoiceOver: `aria-roledescription` will mute the role description
 
 Tested on iOS Safari + VoiceOver
+
+### Findings
 
 Comparing three scenarios:
 
@@ -74,6 +84,12 @@ Comparing three scenarios:
 | `<article>Hello</article>` | "hello, article" |
 | `<article aria-roledescription="message">Hello</article>` | "hello" |
 | `<article aria-roledescription="">Hello</article>` | "hello, article" |
+
+## iOS Safari + VoiceOver: `aria-label` seems mistreated as `aria-roledescription`
+
+Tested on iOS Safari + VoiceOver
+
+### Findings
 
 It seems `aria-label` is mistreated as `aria-roledescription`.
 
