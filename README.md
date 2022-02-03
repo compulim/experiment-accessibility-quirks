@@ -232,12 +232,19 @@ It boils down to how ATs should handle `<p aria-label="Yay">Yes</p>`.
 Generalizing the table above:
 
 - TalkBack always use `aria-label`
-- NVDA and VoiceOver use `aria-label` for interactive roles, and text node for non-interactive roles
+- NVDA and VoiceOver use `aria-label` for interactive roles, and text node for static roles
+  - [`role="separator"`](https://www.w3.org/TR/wai-aria/#separator) can be static or interactive, depends on whether it is focusable or not
 - Narrator use `aria-label` when focused, but text node when scanned
-  - This is somehow similar to NVDA and VoiceOver, but Narrator use a different strategy on deciding interactivity: <kbd>TAB</kbd> means interactive, scan means non-interactive
-  - When Narrator consider the widget is interactive, it concatenates both `aria-label` and text node into "Yay button Yes". This seems bugged
-  - When `aria-label` or `aria-labelledby` is present, accessible name computation should not consider its content
+  - This is somehow similar to NVDA and VoiceOver, but Narrator use a different strategy on deciding interactivity: <kbd>TAB</kbd> means interactive, scan means static
+  - When Narrator consider the role is interactive, it concatenates both `aria-label` and text node into "Yay button Yes". This seems a bug 🪲
+  - When `aria-labelledby` or `aria-label` is present, accessible name computation should not consider its content
   - Correct reading should be "Yay button", instead of "Yay button Yes"
+
+### Conclusions
+
+Don't use `aria-label` on static roles if possible.
+
+Narrator seems bugged when computing accessible name for `<button aria-label="Yay">Yes</button>`.
 
 ## TalkBack: should not read content if focusables are nested
 
