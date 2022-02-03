@@ -8,9 +8,11 @@
 
 Tested on Edge + Windows Narrator.
 
+(Need test on VoiceOver + Safari)
+
 ### Findings
 
-Live region with `aria-relevant="additions"` will only look at the last element in the container. It should also applies to when `aria-relevant` is not present or is presented with other token, such as `"additions text"`.
+Live region with `aria-relevant="additions"` will only look at the last element in the container (elements appended). When elements are prepended or inserted, AT ignored it.
 
 ### Tests
 
@@ -24,9 +26,9 @@ Given:
 </section>
 ```
 
-When an element is appended after 3, Windows Narrator will read it.
+When an element is appended after 3, Narrator will read it.
 
-However, when an element is inserted before 3, Windows Narrator will ignore it.
+However, when an element is inserted before 3, Narrator will ignore it.
 
 ## Live region with same content
 
