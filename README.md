@@ -71,13 +71,31 @@ Tested on iOS Safari + VoiceOver.
 
 ### Background
 
-There is no TAB key on iOS. Thus, nothing is truly focusable in Safari. However, like other AT, VoiceOver provides "selection ring" to select different items, regardless whether they are interactive or not.
+There is no <kbd>TAB</kbd> key on iOS. Thus, discovering focusable elements depends on how the UI is presented.
 
-VoiceOver also have a feature called rotor, which can be used to quickly jump between type of items. If rotor is set to "form controls", users can quickly jump between buttons and textboxes, skipping anything else.
+Let's say we have a focusable UI. If the UI appears like a textbox and user shares the same perception, the user will try to tap on the textbox to edit.
+
+However, if the UI does not appears like a textbox, the user may never tap on it, and the textbox may never be discovered by the user.
+
+VoiceOver has a feature called rotor, which can be used to quickly jump between same type of items. If rotor is set to "form controls", users can quickly jump between buttons and textboxes, skipping anything else.
 
 ### Findings
 
 For `<div tabindex="0">`, when using "form controls" rotor, the selection ring will never land on it. Thus, setting `tabindex` on non-standard element will not be discoverable.
+
+## iOS Safari: `aria-activedescendant` supports is YMMV
+
+Tested on iOS Safari + VoiceOver.
+
+### Background
+
+When VoiceOver is running, users will not be able to focus by tapping. They need to select the item, then double-tap on the screen.
+
+### Findings
+
+Widgets designed with `aria-activedescendant`, usually designed with a keyboard navigation pattern to move the active descendant ring.
+
+However, on iOS, keyboard is uncommon and direct tap is disabled. Thus, moving the active descendant ring is not an easy task: the user need to swipe left/right to select what they want to set as active descendant, then double tap on the screen.
 
 ## iOS Safari + VoiceOver: `aria-roledescription` will mute the role description
 
