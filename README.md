@@ -157,6 +157,6 @@ Tested on iOS Safari + VoiceOver
 
 For `role="list"`, VoiceOver would read as "1, list start", "2", and "3, list end".
 
-However, for `role="feed"`, VoiceOver would only read "1", "2", and "3".
+However, for `role="feed"`, VoiceOver would only read "1", "2", and "3". The containment is not read.
 
 Also, `aria-posinset`/`aria-setsize` are ignored. In other AT, they would read as "1 of 3".
