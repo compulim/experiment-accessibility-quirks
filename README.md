@@ -134,3 +134,29 @@ Notes:
 
 - "won't say this" was never read;
 - "end, message" is read after the last element in the article.
+
+## iOS Safari + VoiceOver: `role="feed"` will not read with start/end or `aria-posinset`
+
+Tested on iOS Safari + VoiceOver
+
+### Background
+
+`role="feed"` is a way to specific a list of articles. And potentially help with infinite scrolling pattern.
+
+`aria-posinset`/`aria-setsize` is a way to help AT users in infinite scrolling or virtual scrolling scenario.
+
+### Findings
+
+```html
+<ul role="feed">
+  <li aria-posinset="1" aria-setsize="3" role="article">1</li>
+  <li aria-posinset="2" aria-setsize="3" role="article">2</li>
+  <li aria-posinset="3" aria-setsize="3" role="article">3</li>
+</ul>
+```
+
+For `role="list"`, VoiceOver would read as "1, list start", "2", and "3, list end".
+
+However, for `role="feed"`, VoiceOver would only read "1", "2", and "3".
+
+Also, `aria-posinset`/`aria-setsize` are ignored. In other AT, they would read as "1 of 3".
