@@ -4,9 +4,11 @@
 
 - [Live region additions](#live-region-additions)
 
-## Live region additions
+## Live region additions only look at appends, not prepends
 
 Tested on Edge + Windows Narrator.
+
+### Findings
 
 Live region with `aria-relevant="additions"` will only look at the last element in the container. It should also applies to when `aria-relevant` is not present or is presented with other token, such as `"additions text"`.
 
@@ -32,6 +34,8 @@ However, when an element is inserted before 3, Windows Narrator will ignore it.
 
 Tested on Edge + Windows Narrator.
 
+### Findings
+
 In a live region, the elements are "ABC", "DEF" and "XYZ". Then, after 2 seconds, remove all of them. Then, after a few more seconds, add back "ABC", "DEF", and "XYZ".
 
 Narrator fails recognize the first "ABC" is a new one. And at the time the elements is reappear in the DOM tree, it only read "DEF" and "XYZ".
@@ -40,11 +44,11 @@ In our case, we are using `aria-labelledby` to point to the narrative content of
 
 ## Live region with `aria-labelledby`
 
-(Not confirmed, need repro)
-
 Tested on iOS Safari + VoiceOver and Chrome + NVDA.
 
-In a live region, Safari will read the added element without looking at `aria-labelledby`.
+### Findings
+
+In a live region, iOS VoiceOver and NVDA will read the added element without looking at `aria-labelledby`.
 
 Say, the following element is added to the live region:
 
@@ -55,9 +59,13 @@ Say, the following element is added to the live region:
 </div>
 ```
 
-Narrator only read the "Should read this". But Safari read both, including the one that is not referenced by `aria-labelledby`.
+| Assistive technology | Read as |
+| - | - |
+| Narrator | "Should read this" |
+| VoiceOver | "Should read this, should not read this" |
+| NVDA | "Should read this, should not read this" |
 
-## iOS Safari + VoiceOver: `tabindex="0"` means nothing for rotor
+## iOS Safari + VoiceOver: `tabindex="0"` cannot be discovered for form controls rotor
 
 Tested on iOS Safari + VoiceOver.
 
