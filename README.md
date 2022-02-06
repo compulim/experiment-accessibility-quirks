@@ -317,3 +317,36 @@ And
   <button>Hello</button>
 </div>
 ```
+
+## Repeated readings when using `aria-labelledby`
+
+When using `aria-labelledby` on a widget, such as list item. The label will be narrated as part of the widget.
+
+Then, continue to scan, the original label will be read again.
+
+The repetitions should be expected.
+
+### Findings
+
+> We are using `role="listbox"` in the sample because the role is read even in scan mode.
+
+```html
+<div aria-labelledby="item-label-1" role="listbox">
+  <span>Bot said:</span>
+  <span id="item-label-1">Hello, World!</span>
+  <span>Sent just now</span>
+</div>
+```
+
+When using screen reader, it will roughly read the followings:
+
+- Enter list, selected, selection contains zero item, "Hello, World!"
+- "Bot said"
+- "Hello, World!"
+- "Sent just now"
+
+### Conclusions
+
+`aria-labelledby` is a good way to briefly describe the "type of content". This should be very similar to `aria-roledescription` and should consider as an extension to role description.
+
+However, we should refrain from using `aria-labelledby` to reading the content. This will reduce repetitions. Screen reader users should be able to pick up the content when scanning or asking the screen reader to read the whole document.
