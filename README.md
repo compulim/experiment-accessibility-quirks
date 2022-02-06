@@ -345,8 +345,13 @@ When using screen reader, it will roughly read the followings:
 - "Hello, World!"
 - "Sent just now"
 
+However, when we remove "Bot said:" in the forementioned DOM tree. The screen reader would read:
+
+- Enter list, selected, selection contains zero item, "Hello, World!"
+- "Sent just now"
+
 ### Conclusions
 
-`aria-labelledby` is a good way to briefly describe the "type of content". This should be very similar to `aria-roledescription` and should consider as an extension to role description.
+`aria-labelledby` is a way to briefly describe the *type of content*. This should be very similar to `aria-roledescription` and should consider as an extension to role description.
 
 However, we should refrain from using `aria-labelledby` to reading the content. This will reduce repetitions. Screen reader users should be able to pick up the content when scanning or asking the screen reader to read the whole document.
