@@ -352,6 +352,6 @@ However, when we remove "Bot said:" in the forementioned DOM tree. The screen re
 
 ### Conclusions
 
-`aria-labelledby` is a way to *briefly describe the type of content*. This should be very similar to `aria-roledescription` and could consider as an extension to role description mechanism.
+`aria-labelledby` is a way to *briefly describe the type of content*. This should be very similar to `aria-roledescription` and could consider as an extension to role description mechanism. Thus, `aria-labelledby` should be used *very sparringly*.
 
 However, to reduce repetitions, we should refrain from using `aria-labelledby` to read the content. Screen reader users should be able to pick up the content when scanning or asking the screen reader to read the whole document.
