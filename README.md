@@ -355,3 +355,23 @@ However, when we remove "Bot said:" in the forementioned DOM tree. The screen re
 `aria-labelledby` is a way to *briefly describe the type of content*. This should be very similar to `aria-roledescription` and could consider as an extension to role description mechanism. Thus, `aria-labelledby` should be used *very sparingly*.
 
 To reduce repeated readings, we should refrain from using `aria-labelledby` to read the element content. Screen reader users should be able to pick up the content when scanning or asking the screen reader to read the whole document.
+
+## `<ul>`/`<li>` vs. `role="list"/`role="listitem"`
+
+While we can use `<ul>` with `list-style-type` to represents an accessible list but not visually a list, we need to be careful about its content.
+
+For the following HTML:
+  
+```html
+<ul style="list-style-type: none; padding: 0;">
+  <li>
+    <ul>
+      <li>This will be level 2, regardless of list-style-type set earlier.</li>
+    </ul>
+  </li>
+</ul>
+```
+
+The inner `<li>` will always be of level 2 and displayed as a hollow dot.
+
+When we need a list that is not visually appears as a list, use `role="list"`/`role="listitem"` instead.
