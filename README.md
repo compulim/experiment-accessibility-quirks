@@ -358,7 +358,7 @@ To reduce repeated readings, we should refrain from using `aria-labelledby` to r
 
 ## `<ul>`/`<li>` vs. `role="list"`/`role="listitem"`
 
-While we can use `<ul>` with `list-style-type` to represents an accessible list but not visually a list, we need to be careful about its content.
+While we can use `<ul>` with `list-style-type: none;` to represents an accessible list but not visually a list, we need to be careful about its content.
 
 For the following HTML:
   
