@@ -356,7 +356,7 @@ However, when we remove "Bot said:" in the forementioned DOM tree. The screen re
 
 To reduce repeated readings, we should refrain from using `aria-labelledby` to read the element content. Screen reader users should be able to pick up the content when scanning or asking the screen reader to read the whole document.
 
-## `<ul>`/`<li>` vs. `role="list"/`role="listitem"`
+## `<ul>`/`<li>` vs. `role="list"`/`role="listitem"`
 
 While we can use `<ul>` with `list-style-type` to represents an accessible list but not visually a list, we need to be careful about its content.
 
