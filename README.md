@@ -74,11 +74,11 @@ Say, the following element is added to the live region:
 </div>
 ```
 
-| Assistive technology | Read as |
-| - | - |
-| Narrator | "Should read this" |
-| VoiceOver | "Should read this, should not read this" |
-| NVDA | "Should read this, should not read this" |
+| Assistive technology | Read as                                  |
+| -------------------- | ---------------------------------------- |
+| Narrator             | "Should read this"                       |
+| VoiceOver            | "Should read this, should not read this" |
+| NVDA                 | "Should read this, should not read this" |
 
 ## iOS Safari + VoiceOver: `tabindex="0"` cannot be discovered by form controls rotor
 
@@ -128,11 +128,11 @@ Tested on iOS Safari + VoiceOver
 
 Comparing three scenarios:
 
-| HTML | VoiceOver read as |
-| - | - |
-| `<article>Hello</article>` | "hello, article" |
-| `<article aria-roledescription="message">Hello</article>` | "hello" |
-| `<article aria-roledescription="">Hello</article>` | "hello, article" |
+| HTML                                                      | VoiceOver read as |
+| --------------------------------------------------------- | ----------------- |
+| `<article>Hello</article>`                                | "hello, article"  |
+| `<article aria-roledescription="message">Hello</article>` | "hello"           |
+| `<article aria-roledescription="">Hello</article>`        | "hello, article"  |
 
 ## TalkBack: `aria-roledescription` is ignored
 
@@ -142,10 +142,10 @@ Tested on Chrome + TalkBack
 
 Comparing three scenarios:
 
-| HTML | VoiceOver read as |
-| - | - |
-| `<article>Hello</article>` | "hello, article" |
-| `<article aria-roledescription="message">Hello</article>` | "hello, article" |
+| HTML                                                      | VoiceOver read as |
+| --------------------------------------------------------- | ----------------- |
+| `<article>Hello</article>`                                | "hello, article"  |
+| `<article aria-roledescription="message">Hello</article>` | "hello, article"  |
 
 ## iOS Safari + VoiceOver: `aria-label` seems mistreated as `aria-roledescription`
 
@@ -169,12 +169,12 @@ It would read "first paragraph, message", followed by "last paragraph, end, mess
 Notes:
 
 - "won't say this" was never read;
-   - Ignoring unknown attribute is correct behavior
+  - Ignoring unknown attribute is correct behavior
 - "end, message" is read after the last element in the article.
-   - This is the behavior of `aria-roledescription`
-   - For `<div role="list">`, it will say "start **list**" and "end **list**"
-   - "list" is a role and can be modified by `aria-roledescription`
-   - Safari seems mistook `aria-label` as `aria-roledescription` because it is saying "end **message**"
+  - This is the behavior of `aria-roledescription`
+  - For `<div role="list">`, it will say "start **list**" and "end **list**"
+  - "list" is a role and can be modified by `aria-roledescription`
+  - Safari seems mistook `aria-label` as `aria-roledescription` because it is saying "end **message**"
 
 ## `role="feed"` will not read with start/end or `aria-posinset`
 
@@ -214,16 +214,16 @@ When focusing on `<div aria-label="Yay" tabindex="0">Yes</div>`, it varies.
 
 ### Findings
 
-| AT | HTML | Read as |
-| - | - | - |
-| Narrator | `<button aria-label="Yay">Yes</button>` | <kbd>TAB</kbd>: "Yay button"<br />Scan: "Yay button Yes" |
-| NVDA | `<button aria-label="Yay">Yes</button>` | <kbd>TAB</kbd>: "Yay button"<br />Scan: "button Yay" |
-| VoiceOver | `<button aria-label="Yay">Yes</button>` | Select: "Yay button"<br />Double tap: "Yay" |
-| TalkBack | `<button aria-label="Yay">Yes</button>` | Select: "Yay button"<br />Double tap: nothing |
-| Narrator | `<div aria-label="Yay" tabindex="0">Yes</div>` | <kbd>TAB</kbd>: "Yay group"<br />Scan: "Yes" |
-| NVDA | `<div aria-label="Yay" tabindex="0">Yes</div>` | <kbd>TAB</kbd>: "Yes"<br />Scan: "Yes" |
-| VoiceOver | `<div aria-label="Yay" tabindex="0">Yes</div>` | Select: "Yes"<br />Double tap: "Yes" |
-| TalkBack | `<div aria-label="Yay" tabindex="0">Yes</div>` | Select: "Yay"<br />Double tap: nothing |
+| AT        | HTML                                           | Read as                                                  |
+| --------- | ---------------------------------------------- | -------------------------------------------------------- |
+| Narrator  | `<button aria-label="Yay">Yes</button>`        | <kbd>TAB</kbd>: "Yay button"<br />Scan: "Yay button Yes" |
+| NVDA      | `<button aria-label="Yay">Yes</button>`        | <kbd>TAB</kbd>: "Yay button"<br />Scan: "button Yay"     |
+| VoiceOver | `<button aria-label="Yay">Yes</button>`        | Select: "Yay button"<br />Double tap: "Yay"              |
+| TalkBack  | `<button aria-label="Yay">Yes</button>`        | Select: "Yay button"<br />Double tap: nothing            |
+| Narrator  | `<div aria-label="Yay" tabindex="0">Yes</div>` | <kbd>TAB</kbd>: "Yay group"<br />Scan: "Yes"             |
+| NVDA      | `<div aria-label="Yay" tabindex="0">Yes</div>` | <kbd>TAB</kbd>: "Yes"<br />Scan: "Yes"                   |
+| VoiceOver | `<div aria-label="Yay" tabindex="0">Yes</div>` | Select: "Yes"<br />Double tap: "Yes"                     |
+| TalkBack  | `<div aria-label="Yay" tabindex="0">Yes</div>` | Select: "Yay"<br />Double tap: nothing                   |
 
 ATs are not consistent on how to handle `aria-label` for roles that are not expected to be interactive, e.g. `role="generic"`.
 
@@ -299,21 +299,13 @@ The only way to workaround it is to make it not focusable by any means, such as 
 Things tested **not** working as a workaround:
 
 ```html
-<button
-  aria-hidden="true"
-  role="presentation none"
-  style="pointer-events: none;"
-  tabindex="-1"
->
+<button aria-hidden="true" role="presentation none" style="pointer-events: none;" tabindex="-1"></button>
 ```
 
 And
 
 ```html
-<div
-  aria-hidden="true"
-  role="presentation none"
->
+<div aria-hidden="true" role="presentation none">
   <button>Hello</button>
 </div>
 ```
@@ -345,23 +337,66 @@ When using screen reader, it will roughly read the followings:
 - "Hello, World!"
 - "Sent just now"
 
+Note: "Hello, World!" will be narrated twice.
+
 However, when we remove "Bot said:" in the forementioned DOM tree. The screen reader would read:
 
 - Enter list, selected, selection contains zero item, "Hello, World!"
 - "Sent just now"
 
+Note: "Hello, World!" is only narrated once, despite it is unchanged.
+
 ### Conclusions
 
-`aria-labelledby` is a way to *briefly describe the type of content*. This should be very similar to `aria-roledescription` and could consider as an extension to role description mechanism. Thus, `aria-labelledby` should be used *very sparingly*.
+`aria-labelledby` is a way to _briefly describe the type of content_. This should be very similar to `aria-roledescription` and could consider as an extension to role description mechanism. Thus, `aria-labelledby` should be used _very sparingly_.
 
 To reduce repeated readings, we should refrain from using `aria-labelledby` to read the element content. Screen reader users should be able to pick up the content when scanning or asking the screen reader to read the whole document.
+
+## Repeated readings in live region
+
+🪲 Seems like a bug.
+
+When using `aria-labelledby` in a live region, Windows Narrator will repeat the reading.
+
+```html
+<article aria-labelledby="id-00001">
+  <div id="id-00001">Hello, World!</div>
+</article>
+```
+
+### Narrations
+
+| Screen reader                         | Version tested        | Narrations                           | Notes                                       |
+| ------------------------------------- | --------------------- | ------------------------------------ | ------------------------------------------- |
+| Windows Narrator + Edge 102.0.1245.41 | Windows 10 19043.1766 | Hello, World! Article. Hello, World! | "Hello, World!" is being narrated twice. 🪲 |
+| Windows Narrator + Edge 102.0.1245.41 | Windows 11 22621.160  | Hello, World! Article. Hello, World! | "Hello, World!" is being narrated twice. 🪲 |
+| NVDA + Chrome 102.0.5005.115          | 2022.1                | Hello, World!                        |                                             |
+| NVDA + Firefox 101.0.1                | 2022.1                | Hello, World!                        |                                             |
+| TalkBack                              | Android 11            | Hello, World!                        |                                             |
+| VoiceOver                             | macOS 12.4            | Hello, World!                        |                                             |
+
+### 🪲 Bug in Windows Narrator
+
+After the content is appended to a live region, Windows Narrator should not narrate the content twice.
+
+However, when we press <KBD>CAPSLOCK</kbd> + <kbd>CTRL</kbd> + <kbd>I</kbd> to narrate the whole page, it narrates as "Hello, World!" and do not repeat the content.
+
+### Workaround
+
+We need to simplify the DOM tree for live region as much as possible and refrain from using `aria-labelledby`. We should use the following template:
+
+```html
+<article id="id-00001">Hello, World!</article>
+```
+
+On Windows Narrator, it will now correctly narrate as "Article. Hello, World!"
 
 ## `<ul>`/`<li>` vs. `role="list"`/`role="listitem"`
 
 While we can use `<ul>` with `list-style-type: none;` to represents an accessible list but not visually a list, we need to be careful about its content.
 
 For the following HTML:
-  
+
 ```html
 <ul style="list-style-type: none; padding: 0;">
   <li>

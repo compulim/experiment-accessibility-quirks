@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <style type="text/css">
+      article {
+        border: solid 1px black;
+        margin-bottom: 10px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div aria-live="polite" id="live-region"></div>
+  </body>
+  <script>
+    'use strict';
+
+    const HTML_TEMPLATE = '<article id="{ID}">{TEXT}</article>';
+
+    (() => {
+      const parser = new DOMParser();
+      const liveRegion = document.getElementById('live-region');
+
+      function appendToLiveRegion(text) {
+        const id = Math.random().toString(36).substr(2, 5);
+        const html = HTML_TEMPLATE.replace(/\{ID\}/gu, id).replace(/\{TEXT\}/gu, text);
+
+        liveRegion.append(parser.parseFromString(html, 'text/html').body.firstChild);
+      }
+
+      setTimeout(() => appendToLiveRegion('Bot said: Do you like our service? <button>Yes</button> <button>No</button>'), 2000);
+      setTimeout(() => appendToLiveRegion('You said: Yes!'), 4000);
+    })();
+  </script>
+</html>
