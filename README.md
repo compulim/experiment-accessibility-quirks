@@ -377,6 +377,8 @@ When using `aria-labelledby` in a live region, Windows Narrator will repeat the 
 
 ### 🪲 Bug in Windows Narrator
 
+![Video showing screen reader narrating the content twice](https://raw.githubusercontent.com/compulim/experiment-accessibility-quirks/main/experiments/live-region/aria-labelledby/issue.html)
+
 After the content is appended to a live region, Windows Narrator should not narrate the content twice.
 
 However, when we press <KBD>CAPSLOCK</kbd> + <kbd>CTRL</kbd> + <kbd>I</kbd> to narrate the whole page, it narrates as "Hello, World!" and do not repeat the content.
