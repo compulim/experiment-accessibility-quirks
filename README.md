@@ -377,7 +377,7 @@ When using `aria-labelledby` in a live region, Windows Narrator will repeat the 
 
 ### 🪲 Bug in Windows Narrator
 
-![Video showing screen reader narrating the content twice](https://raw.githubusercontent.com/compulim/experiment-accessibility-quirks/main/experiments/live-region/aria-labelledby/issue.html)
+![Video showing screen reader narrating the content twice](https://raw.githubusercontent.com/compulim/experiment-accessibility-quirks/main/experiments/live-region/aria-labelledby/issue.mp4)
 
 After the content is appended to a live region, Windows Narrator should not narrate the content twice.
 
