@@ -352,9 +352,9 @@ Note: "Hello, World!" is only narrated once, despite it is unchanged.
 
 To reduce repeated readings, we should refrain from using `aria-labelledby` to read the element content. Screen reader users should be able to pick up the content when scanning or asking the screen reader to read the whole document.
 
-## Repeated readings in live region
+## Repeated readings in live region when using `aria-labelledby`
 
-🪲 Seems like a bug.
+🪲 Seems like a bug. 📖 [Link to code](./experiments/live-region/aria-labelledby/)
 
 When using `aria-labelledby` in a live region, Windows Narrator will repeat the reading.
 
