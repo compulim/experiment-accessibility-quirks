@@ -359,9 +359,14 @@ To reduce repeated readings, we should refrain from using `aria-labelledby` to r
 When using `aria-labelledby` in a live region, Windows Narrator will repeat the reading.
 
 ```html
-<article aria-labelledby="id-00001">
-  <div id="id-00001">Hello, World!</div>
-</article>
+<div aria-live="polite">
+  <article aria-labelledby="id-00001">
+    <div id="id-00001">Bot said: Do you like our service? <button>Yes</button> <button>No</button></div>
+  </article>
+  <article aria-labelledby="id-00002">
+    <div id="id-00002">You said: Yes!</div>
+  </article>
+</div>
 ```
 
 ### Narrations
@@ -406,7 +411,14 @@ Transcript:
 We need to simplify the DOM tree for live region as much as possible and refrain from using `aria-labelledby`. We should use the following template:
 
 ```html
-<article id="id-00001">Hello, World!</article>
+<div aria-live="polite">
+  <article>
+    Bot said: Do you like our service? <button>Yes</button> <button>No</button>
+  </article>
+  <article>
+    You said: Yes!
+  </article>
+</div>
 ```
 
 On Windows Narrator, it will now correctly narrate as "Article. Hello, World!"
