@@ -382,10 +382,10 @@ https://user-images.githubusercontent.com/1622400/174435618-d51c9b0b-5855-4b7d-b
 Transcript:
 
 - Bot said, do you like our service? Yes no.
-- Article
+- Article.
 - Bot said, do you like our service? Yes button, no button.
 - You said, yes.
-- Article
+- Article.
 - You said, yes.
 
 After the content is appended to a live region, Windows Narrator narrated the content twice, causing confusions.
@@ -410,6 +410,17 @@ We need to simplify the DOM tree for live region as much as possible and refrain
 ```
 
 On Windows Narrator, it will now correctly narrate as "Article. Hello, World!"
+
+https://user-images.githubusercontent.com/1622400/174435972-ced75022-c525-41fa-8b9b-a82205e1fa38.mp4
+
+Transcript:
+
+- Article.
+- Bot said, do you like our service?
+- Yes, button.
+- No, button.
+- Article.
+- You said, yes.
 
 ## `<ul>`/`<li>` vs. `role="list"`/`role="listitem"`
 
