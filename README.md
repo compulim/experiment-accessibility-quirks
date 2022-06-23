@@ -453,3 +453,35 @@ For the following HTML:
 The inner `<li>` will always be of level 2 and displayed as a hollow dot.
 
 When we need a list that is not visually appears as a list, use `role="list"`/`role="listitem"` instead.
+
+## Repeated readings when using JAWS
+
+(Need flushing and repro)
+
+When using arrow keys to read the following DOM with default mode (a.k.a. scan mode):
+
+```html
+<article>
+  <div role="group">
+    Say something
+  </div>
+</article>
+```
+
+JAWS will narrate:
+
+- Article
+- Group, say something
+- Say something
+- Group end
+- Article end
+
+### Findings
+
+In JAWS, if `role="group"` is applied to a HTML element, while reading the role, it will read content as its label. Thus, it will read the content twice.
+
+- [ ] ❓ Check if we add `aria-label`/`aria-labelledby` to `<div role="group">`, how will it narrate?
+
+### Learnings
+
+When applying `role="group"`, one should also apply `aria-label`/`aria-labelledby`.
