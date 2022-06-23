@@ -536,7 +536,7 @@ If your element is not clickable/actionable, never make it focusable/tabbable, i
 
 ## You should not know when a screen reader is running
 
-Because knowing someone's preferences on screen reader, could be an action of discrimination.
+Because knowing someone's preferences on screen reader, you are potentially routing them to a different way to do stuff, could be an action of discrimination.
 
 While it is easier to workaround browser bugs by looking at browser version via `navigator.userAgent`, it is much more difficult if you cannot know what screen reader the user is using.
 
