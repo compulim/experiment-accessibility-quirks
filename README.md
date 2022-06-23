@@ -485,3 +485,53 @@ In JAWS, if `role="group"` is applied to a HTML element, while reading the role,
 ### Learnings
 
 When applying `role="group"`, one should also apply `aria-label`/`aria-labelledby`.
+
+# For accessibility newbies
+
+Writing my tips/myths here. For newbies who read some articles about accessibilities and this section will *patch* what they learnt.
+
+## "Scan mode is not needed, you can safely ignore it"
+
+Absolutely no.
+
+Scan mode is a caret-browsing feature provided by virtually all screen readers and it is the default mode. It helps end-users to navigate the content line-by-line or word-by-word.
+
+| Screen reader | What it call "scan mode" | How to toggle it |
+| - | - | - |
+| Windows Narrator | Scan mode | <kbd>CAPSLOCK</kbd> + <kbd>SPACEBAR</kbd> |
+| NVDA | Browse mode | <kbd>CAPSLOCK</kbd> + <kbd>SPACEBAR</kbd> |
+| JAWS | Virtual cursor | <kbd>CAPSLOCK</kbd> + <kbd>Z</kbd> |
+
+Setting `role="application"` (and some other roles) should turn it off. However, I am not aware of any screen reader or browser do it.
+
+As mobile devices does not have <kbd>TAB</kbd> key, scan mode become *the only option to read the content*. Thus, it is always on.
+
+That means, supporting scan mode is necessary as it is the only mode used in mobile browser (unless you don't need to support mobile browser.)
+
+## `aria-label`/`aria-labelledby` are not alt text
+
+Alt text means, alternative text. It means "another way to read the content."
+
+`aria-label` *marks a label*. `aria-labelledby` *reference a label*. Both means, they will be narrated *as part of the content*. `aria-label`/`aria-labelledby` are not *replacing the content*, unlike alt text.
+
+If you want the screen reader to say one thing while displaying another, use `aria-hidden` to hide what you don't want it to read.
+
+## `aria-label` vs. `aria-labelledby`
+
+While many textbooks say this (and this is true): use `aria-labelledby` if the label content is visible on the page. They didn't mention the true difference between `aria-label` and `aria-labelledby`.
+
+`aria-label` only support plain text content. If your label contains rich content, say, `<div>Do you think this is true? <button>Yes</button> <button>No</button></div>`, you *must* use `aria-labelledby`.
+
+Rich content label will ease the effort of localization. In the code snippet above, it will say, "Do you think this is true? Yes button. No button." in English. The word "button" is borrowed from the browser/OS localization strings. And this is also for best practices: we should use the localization strings from the platform as much as possible. (And don't concatenate localization strings, format them.)
+
+## *Never ever* simply mark your existing container with `aria-live="polite"`
+
+Even it sounds stupid to duplicate/clone the content, *build a new container*. Absolutely no excuses, period.
+
+If you don't know why, read this whole documentation again. If you still don't want to go this route, your laziness will kill you soon.
+
+## "I need to <kbd>TAB</kbd> to the content"
+
+End-user don't read by <kbd>TAB</kbd> key, they read by arrow keys (scan mode) or swipes (on mobile devices).
+
+If your element is not clickable/actionable, never make it focusable/tabbable, it will violate one of the accessibility rules.
