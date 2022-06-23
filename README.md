@@ -534,6 +534,20 @@ End-user don't read by <kbd>TAB</kbd> key, they read by arrow keys (scan mode) o
 
 If your element is not clickable/actionable, never make it focusable/tabbable, it will violate one of the accessibility rules.
 
+## You should not know when a screen reader is running
+
+Because knowing someone's preferences on screen reader, could be an action of discrimination.
+
+While it is easier to workaround browser bugs by looking at browser version via `navigator.userAgent`, it is much more difficult if you cannot know what screen reader the user is using.
+
+## Use WebDriver or a real browser for automated testing
+
+Currently, we cannot fully test page accessibility. Unless you write your own screen reader, some parts are not testable, such as live region.
+
+However, we should write automated test as much as we could. If your test harness is not running on a real browser (say, JSDOM), you cannot test <kbd>TAB</kbd> keys reliably.
+
+Because you don't normally use your UI with screen reader, accessibility tests are more important than your normal tests. Accessibility tests protect user stories that you don't normally touch daily. When you know they are broken, it's often too late.
+
 ## "The textbook say this is true"
 
 Try the hypothesis on every browsers, compile a list, and check for consensus. Prefereably record a video so you can look at the behavior later.
