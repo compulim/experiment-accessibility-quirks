@@ -1,6 +1,6 @@
 # Accessibility Quirks
 
-(If you are new to accessibility, [jump to this section below](For accessibility newbies).)
+(If you are new to accessibility, [jump to this section below](#for-accessibility-newbies).)
 
 ## Live region additions only look at appends, not prepends
 
