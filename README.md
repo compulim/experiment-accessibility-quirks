@@ -533,3 +533,11 @@ If you don't know why, read this whole documentation again. If you still don't w
 End-user don't read by <kbd>TAB</kbd> key, they read by arrow keys (scan mode) or swipes (on mobile devices).
 
 If your element is not clickable/actionable, never make it focusable/tabbable, it will violate one of the accessibility rules.
+
+## "The textbook say this is true"
+
+Try the hypothesis on every browsers, compile a list, and check for consensus. Prefereably record a video so you can look at the behavior later.
+
+Browser and OS version updates are often and their behaviors could change.
+
+If the textbook say it's A, but every browser say it's B except one of them. Is it A or B? Even though it's A, end-user think it's B and you are probably wrong from their perspectives.
