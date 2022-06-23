@@ -494,13 +494,13 @@ Absolutely no.
 
 Scan mode is a caret-browsing feature provided by virtually all screen readers and it is the default mode. It helps end-users to navigate the content line-by-line or word-by-word.
 
-| Screen reader | What it call "scan mode" | How to toggle it |
+| Screen reader | What it call "scan mode" | How to toggle it (laptop mode) |
 | - | - | - |
 | Windows Narrator | Scan mode | <kbd>CAPSLOCK</kbd> + <kbd>SPACEBAR</kbd> |
 | NVDA | Browse mode | <kbd>CAPSLOCK</kbd> + <kbd>SPACEBAR</kbd> |
 | JAWS | Virtual cursor | <kbd>CAPSLOCK</kbd> + <kbd>Z</kbd> |
 
-Setting `role="application"` (and some other roles) should turn it off. However, I am not aware of any screen reader or browser do it.
+Setting `role="application"` (and some other roles) should turn it off (by letting JavaScript handles all keyboard keys). However, I am not aware of any screen reader or browser do it correctly.
 
 As mobile devices does not have <kbd>TAB</kbd> key, scan mode become *the only option to read the content*. Thus, it is always on.
 
